@@ -182,8 +182,8 @@ function init(){
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function gate(){
   var now=Date.now(),o=contest.nominations_open_at&&new Date(contest.nominations_open_at).getTime(),c=contest.nominations_close_at&&new Date(contest.nominations_close_at).getTime();
-  if(!o||now<o){notice('<b>Nominations open '+(o?fmt(contest.nominations_open_at):'soon')+'.</b><br>Come back then to nominate your favorites.');return}
-  if(c&&now>c){notice('<b>Nominations are closed.</b><br>Thank you! Finalists will be announced '+(contest.finalists_announced_at?fmt(contest.finalists_announced_at):'soon')+', followed by a public vote in the YamCo Vibe app.');return}
+  if(!o||now<o){notice('<b>Nominations for 2027 begin January 1.</b><br>Come back then to nominate your favorites in The Vibe Awards, Best of Yamhill County 2027.');return}
+  if(c&&now>c){notice('<b>Nominations are closed.</b><br>Thank you! Finalists will be announced '+(contest.finalists_announced_at?fmt(contest.finalists_announced_at):'soon')+', followed by daily voting in the YamCo Vibe app.');return}
   show('notice',false);show('formCard',true);
 }
 function renderTimeline(){
