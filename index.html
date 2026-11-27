@@ -50,7 +50,9 @@ label.check{font-weight:400;display:flex;gap:10px;align-items:flex-start;margin-
 button.go{width:100%;margin-top:20px;padding:14px;border:0;border-radius:12px;background:var(--merlot);color:#fff;font:inherit;font-weight:600;font-size:1.05rem;cursor:pointer;border-bottom:3px solid var(--gold)}
 button.go:hover{background:var(--merlot-d)}
 button.go:disabled{opacity:.55;cursor:default}
-button.alt{background:#fff;color:var(--merlot);border:2px solid var(--merlot);border-bottom-width:2px;margin-top:12px}
+button.alt,a.alt{background:#fff;color:var(--merlot);border:2px solid var(--merlot);border-bottom-width:2px;margin-top:12px}
+a.go{display:block;text-align:center;text-decoration:none}
+.thanks .badge{width:min(340px,86vw);height:auto;border-radius:14px;margin:4px auto 12px;border:1px solid var(--line);display:block;background:#fff}
 .msg{margin-top:14px;padding:11px 13px;border-radius:10px;font-size:.92rem;display:none}
 .msg.err{display:block;background:#fbe9ea;color:var(--err);border:1px solid #efc3c7}
 .msg.info{display:block;background:#f3e6c4;color:#5a4a10}
@@ -115,11 +117,12 @@ footer a{color:var(--merlot)}
   </div>
 
   <div id="thanksCard" class="card hidden thanks" aria-live="polite">
-    <div class="grape" aria-hidden="true">🍇</div>
+    <img class="badge" src="assets/i-nominated-1080.png" alt="I Nominated — The Vibe Awards, Best of Yamhill County 2027" width="1080" height="1080">
     <h2>Thank you!</h2>
     <p id="thanksMsg">Your nomination is in.</p>
-    <button class="go" id="again" type="button">Nominate in another award</button>
-    <button class="go alt" id="share" type="button">Share this page</button>
+    <a class="go" id="shareFb" href="#" target="_blank" rel="noopener noreferrer">Share to Facebook</a>
+    <a class="go alt" id="downloadBadge" href="assets/i-nominated-1080.png" download="I-Nominated-Vibe-Awards.png">Download badge</a>
+    <button class="go alt" id="again" type="button">Nominate in another award</button>
   </div>
 
   <ul class="timeline hidden" id="timeline"></ul>
@@ -277,10 +280,11 @@ $('again').addEventListener('click',function(){
   clearMatch();$('nominee').value='';$('city').value='';$('reason').value='';$('rc').textContent='0/500';$('cat').value='';
   loadedAt=Date.now();show('thanksCard',false);show('formCard',true);$('cat').focus();
 });
-$('share').addEventListener('click',function(){
-  var u=location.origin+location.pathname,t='Nominate your favorites for The Vibe Awards, Best of Yamhill County 2027, presented by YamCo Vibe.';
-  if(navigator.share){navigator.share({title:document.title,text:t,url:u}).catch(function(){})}
-  else if(navigator.clipboard){navigator.clipboard.writeText(u).then(function(){$('share').textContent='Link copied'})}
+function sharePageUrl(){return new URL('nominated.html', location.href).href}
+$('shareFb').href='https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(sharePageUrl());
+$('shareFb').addEventListener('click',function(){
+  /* Opens Facebook's share dialog only. Nothing is posted automatically. */
+  $('shareFb').href='https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(sharePageUrl());
 });
 init();
 })();
